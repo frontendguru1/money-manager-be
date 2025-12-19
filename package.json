@@ -1,0 +1,23 @@
+{
+  "name": "node-2025-26",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/frontendguru1/money-manager-be#readme",
+  "bugs": {
+    "url": "https://github.com/frontendguru1/money-manager-be/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontendguru1/money-manager-be.git"
+  },
+  "type": "module",
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
