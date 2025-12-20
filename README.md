@@ -1,6 +1,7 @@
-# money-manager-be
-
 # Setup
+ - git clone https://github.com/frontendguru1/money-manager-be.git
+ - npm i
+ - npm run dev
 
 # Setup - Mongo DB
     - create a new account
@@ -9,11 +10,9 @@
     - copy the connection
     - whitelist IP Address
 
-
 # Connect mongo DB from node application
     - install mongoose package - npm i mongoose
     - create a new .env file - npm i dotenv
-
 
 # HTTP Methods and status code
     Code:
