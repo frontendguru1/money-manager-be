@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import AuthRoutes from './Routes/Auth.routes.js';
 
 class Server {
     app = express();
@@ -14,6 +15,7 @@ class Server {
     setConfig() {
         dotenv.config({ path: './.env' });
         this.port = process.env.PORT;
+
         this.app.use(express.json());
     }
 
@@ -32,15 +34,10 @@ class Server {
     }
 
     setRoutes() {
-        this.app.get('/', (req, res) => {
-            res.json(
-                {
-                    name: "Money Manager API test",
-                    version: "1.0.0",
-                    description: "This is a simple money manager API built with Express.js",
-                }
-            ).status(200);
-        });
+        // backURL + /api/v1/
+
+        this.app.use('/api/v1/', AuthRoutes);
+
 
 
     }
