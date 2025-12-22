@@ -25,7 +25,69 @@ export function validateRegisterSchema(data) {
         sanitizedData.lastName = lastNameData;
     }
 
+    // email validation
+    if(!validator.isEmail(email)) {
+        errors.email = "Invalid email format";
+    } else {
+        sanitizedData.email = email;
+    }
 
+    // password validation
+
+    if(validator.isEmpty(password)) {
+        errors.password = "Password is required";
+    } else if(!validator.isLength(password, {min: 6})) {
+        errors.password = "Password must be 6 characters long";
+    } else {
+        sanitizedData.password = password;
+    }
+
+    // phone validation
+    if(!validator.isMobilePhone(phone + '')) {
+        errors.phone = "Invalid phone number";
+    } else {
+        sanitizedData.phone = phone;
+    }
+
+    // city validation
+    const {error: cityError, sanitizedData: cityData} = validateString("city", city);
+
+    console.log('city error', cityError);
+    console.log('city data', cityData);
+
+    if(Object.keys(cityError).length > 0) {
+        errors.city = cityError.city;
+    } else {
+        sanitizedData.city = cityData;
+    }
+
+
+
+    // state validation
+    const {error: stateError, sanitizedData: stateData} = validateString("state", state);
+    if(Object.keys(stateError).length > 0) {
+        errors.state = stateError.state;
+    } else {
+        sanitizedData.state = stateData;
+    }
+
+    // zipcode validation
+    console.log('zipcode value', zipcode);
+    if(validator.isEmpty(zipcode)) {
+        errors.zipcode = "Zipcode is required";
+    } else if(!validator.isLength(zipcode, {min: 6, max: 6})) {
+        errors.zipcode = "Zipcode must be 6 characters long";
+    } else {
+        sanitizedData.zipcode = zipcode;
+    }
+
+    // country validation
+    const {error: countryError, sanitizedData: countryData} = validateString("country", country);
+    if(Object.keys(countryError).length > 0) {
+        errors.country = countryError.country;
+    } else {
+        sanitizedData.country = countryData;
+    }
 
     return {
         isValid: Object.keys(errors).length === 0,

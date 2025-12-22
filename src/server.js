@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import AuthRoutes from './Routes/Auth.routes.js';
+import UserRoutes from './Routes/User.routes.js';
 
 class Server {
     app = express();
@@ -34,12 +35,9 @@ class Server {
     }
 
     setRoutes() {
-        // backURL + /api/v1/
-
         this.app.use('/api/v1/', AuthRoutes);
-
-
-
+        this.app.use('/api/v1/', UserRoutes);
+        
     }
 }
 

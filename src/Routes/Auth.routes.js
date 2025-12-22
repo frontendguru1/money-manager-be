@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import AuthValidator from '../Validators/Auth.validator.js';
+import AuthController from '../Controllers/Auth.controller.js';
 
 class AuthRoutes {
     router = null;
@@ -13,7 +14,8 @@ class AuthRoutes {
 
     // POST routes
     postRoutes() {
-        this.router.post('/register',  AuthValidator.validateRegistration);
+        this.router.post('/register',  AuthValidator.validateRegistration, AuthController.register);
+
         // this.router.post('/login',  )
         // this.router.post('/logout',  )
         // this.router.post('/forgotPassword',  )
