@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import User from '../Models/User.register.model.js';
 
 class AuthController {
@@ -9,6 +10,7 @@ class AuthController {
 
         try {
             const {firstName, lastName, email, phone, city, state, zipcode, country, password } = req.body;
+            const hashedPassword = await bcrypt.hash(password, 10);
 
             const data = {
                 firstName,
@@ -19,7 +21,7 @@ class AuthController {
                 state,
                 zipcode,
                 country,
-                password
+                password: hashedPassword
             }
 
             // Check if the user already exists with the same email or phone
@@ -40,6 +42,49 @@ class AuthController {
             return res.status(201).json({
                 message: "User registered successfully",
                 user: newUser
+            });
+
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Internal Server Error',
+                error: error.message
+            });
+        }
+    }
+
+    /**
+     * User Login
+     */
+
+    static async login(req, res) {
+        try {
+            
+            const {email, password} = req.body;
+
+            const user = await User.findOne({
+                email: email
+            });
+
+            if(!user) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Invalid email or password'
+                });
+            }
+
+            const isPasswordValid = await user.validatePassword(password);
+
+            if(!isPasswordValid) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Invalid email or password'
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: 'User logged in successfully'
             });
 
         } catch (error) {

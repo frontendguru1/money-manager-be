@@ -95,3 +95,32 @@ export function validateRegisterSchema(data) {
         sanitizedData
     }
 }
+
+export function validateLoginSchema(data) {
+    const errors = {};
+    const sanitizedData = {};
+    const {email, password} = data;
+
+    // check if the email is present and valid
+    if(validator.isEmpty(email)) {
+        errors.email = "Email is required";
+    } else if(!validator.isEmail(email)) {
+        errors.email = "Invalid email format";
+    } else {
+        sanitizedData.email = email;
+    }
+
+
+    // check if the password is present
+    if(validator.isEmpty(password)) {
+        errors.password = "Password is required";
+    } else {
+        sanitizedData.password = password;
+    }
+
+    return {
+        isValid: Object.keys(errors).length === 0,
+        errors,
+        sanitizedData
+    }
+}

@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import mongoose, { Schema, model } from "mongoose";
 
 const UserRegisterSchema = new Schema({
@@ -43,6 +44,13 @@ const UserRegisterSchema = new Schema({
 }, {
     timestamps: true
 });
+
+UserRegisterSchema.methods.validatePassword = async function(userInputPassword) {
+    const user = this;
+    const hashedPassword = user.password;
+    const isPasswordValid = await bcrypt.compare(userInputPassword, hashedPassword);
+    return isPasswordValid;
+}
 
 const User = model('User', UserRegisterSchema);
 
