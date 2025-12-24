@@ -16,10 +16,9 @@ class AuthRoutes {
     postRoutes() {
         this.router.post('/register',  AuthValidator.validateRegistration, AuthController.register);
 
-        this.router.post('/login', AuthValidator.validateLogin, AuthController.login)
+        this.router.post('/login', AuthValidator.validateLogin, AuthController.login);
 
-        // this.router.post('/logout',  )
-        // this.router.post('/forgotPassword',  )
+        this.router.post('/logout', AuthController.logout);
     }
 
     // GET routes

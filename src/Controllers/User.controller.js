@@ -2,11 +2,10 @@ import User from '../Models/User.register.model.js';
 class UserController {
     static async getUserProfile(req, res) {
         try {
-            const userId = "694947a4365e0243e37e7ff0";
 
-            const userData = await User.findOne({_id: userId});
+            const user = req.user
 
-            if(!userData) {
+            if(!user) {
                 return res.status(404).json({
                     success: false,
                     message: 'User not found'
@@ -16,7 +15,7 @@ class UserController {
             return res.status(200).json({
                 success: true,
                 message: 'User profile fetched successfully',
-                data: userData
+                data: user
             });
 
 

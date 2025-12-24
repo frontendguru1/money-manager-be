@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import mongoose, { Schema, model } from "mongoose";
 
@@ -45,6 +46,28 @@ const UserRegisterSchema = new Schema({
     timestamps: true
 });
 
+/**
+ * 
+ * Sign JWT method
+ */
+
+UserRegisterSchema.methods.signJWT = async function() {
+    const user = this;
+    const token = await jwt.sign({
+        _id: user._id,
+        email: user.email
+    }, process.env.SECRET_KEY, {
+        expiresIn: '1h'
+    });
+
+    return token;
+}
+
+
+/**
+ * 
+ * Validate Password method
+ */
 UserRegisterSchema.methods.validatePassword = async function(userInputPassword) {
     const user = this;
     const hashedPassword = user.password;
@@ -53,5 +76,4 @@ UserRegisterSchema.methods.validatePassword = async function(userInputPassword) 
 }
 
 const User = model('User', UserRegisterSchema);
-
 export default User;

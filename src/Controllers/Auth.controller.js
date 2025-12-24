@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../Models/User.register.model.js';
+import exp from 'constants';
 
 class AuthController {
 
@@ -82,11 +83,42 @@ class AuthController {
                 });
             }
 
+            // Generate JWT Token
+            const token = await user.signJWT();
+
+            // set the token in cookies
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: true,
+                expires: new Date(Date.now() + 3600000) // 1 hour
+            });
+
             return res.status(200).json({
                 success: true,
                 message: 'User logged in successfully'
             });
 
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Internal Server Error',
+                error: error.message
+            });
+        }
+    }
+
+    /**
+     * User Logout
+     */
+    static logout(req, res) {
+        try {
+            // res.clearCookie('token');  
+            res.cookie('token', '', { expires: new Date(0) });
+            return res.status(200).json({
+                success: true,
+                message: 'User logged out successfully'
+            });
+            
         } catch (error) {
             return res.status(500).json({
                 success: false,

@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import AuthRoutes from './Routes/Auth.routes.js';
 import UserRoutes from './Routes/User.routes.js';
@@ -18,6 +19,7 @@ class Server {
         this.port = process.env.PORT;
 
         this.app.use(express.json());
+        this.app.use(cookieParser());
     }
 
     connectDB() {
@@ -37,7 +39,7 @@ class Server {
     setRoutes() {
         this.app.use('/api/v1/', AuthRoutes);
         this.app.use('/api/v1/', UserRoutes);
-        
+
     }
 }
 
