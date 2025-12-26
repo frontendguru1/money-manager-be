@@ -9,7 +9,6 @@ const UserRegisterSchema = new Schema({
     },
     lastName: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
@@ -18,24 +17,19 @@ const UserRegisterSchema = new Schema({
     },
     phone : {
         type: String,
-        required: true,
         unique: true,
     },
     city: {
         type: String,
-        required: true,
     },
     state: {
         type: String,
-        required: true,
     },
     zipcode: {
         type: String,
-        required: true,
     },
     country: {
         type: String,
-        required: true,
     },
     password: {
         type: String,
