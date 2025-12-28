@@ -1,4 +1,5 @@
 import User from '../Models/User.register.model.js';
+import { uploadToCloudinary } from '../service/cloudinary.js';
 class UserController {
     /**
      * Get User Profile
@@ -67,6 +68,56 @@ class UserController {
                 data: user
             });
 
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: 'Internal Server Error',
+                error: error.message
+            });
+        }
+    }
+
+    /**
+     * Upload Profile Image
+     */
+    static async uploadProfileImage(req, res) {
+        try {
+
+            if(!req.user) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'User not authenticated'
+                });
+            }
+
+            const profileImagePath = req?.file?.path;
+
+            if(!profileImagePath) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'No profile image uploaded'
+                });
+            }
+
+            const fileResponse = await uploadToCloudinary(profileImagePath);
+            if(!fileResponse) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error while uploading profile image'
+                });
+            }
+
+            req.user.profileImage = fileResponse.secure_url;
+            req.user.save();
+
+            return res.status(200).json({
+                success: true,
+                message: 'Profile image uploaded successfully',
+                data: {
+                    profileImageUrl: fileResponse.url
+                }
+            });
+            
         } catch (error) {
             return res.status(500).json({
                 success: false,

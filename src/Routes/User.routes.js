@@ -2,12 +2,14 @@ import {Router} from 'express';
 import UserController from '../Controllers/User.controller.js';
 import { authMiddleware } from '../Middlewares/Global.middleware.js';
 import UserProfileValidator from '../Validators/User.profile.validator.js'
+import { upload } from '../Middlewares/Multer.middleware.js';
 
 class UserRoutes {
     router = null;
     constructor() {
         this.router = Router();
         this.getRoutes();
+        this.postRoutes();
         this.patchRoutes();
     }
     
@@ -15,6 +17,15 @@ class UserRoutes {
         this.router.get('/user/profile',
             authMiddleware,
             UserController.getUserProfile
+        );
+    }
+
+    postRoutes() {
+        this.router.post('/user/upload/image',
+            authMiddleware,
+            // TODO: implement validation for the file type and size
+            upload.single('profileImage'),
+            UserController.uploadProfileImage
         );
     }
 

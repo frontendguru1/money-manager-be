@@ -34,8 +34,11 @@ const UserRegisterSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    profileImage: {
+        type: String
     }
-
+    
 }, {
     timestamps: true
 });
