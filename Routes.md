@@ -21,6 +21,13 @@
  - PUT /profile/update
 
 # Group
+- POST /groups – Create a new group
+   Payload: {name: "group name", description: "group description"}
+
+- GET /groups – List all groups current user belongs to
+- GET /groups/:groupId – Get group details
+- PATCH /groups/:groupId – Update group (name, etc.)
+- DELETE /groups/:groupId – Delete group (owner only)
 
 
 # Invite

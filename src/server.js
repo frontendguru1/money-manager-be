@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import AuthRoutes from './Routes/Auth.routes.js';
 import UserRoutes from './Routes/User.routes.js';
+import GroupRoutes from './Routes/Group.routes.js';
 
 class Server {
     app = express();
@@ -39,6 +40,7 @@ class Server {
     setRoutes() {
         this.app.use('/api/v1/', AuthRoutes);
         this.app.use('/api/v1/', UserRoutes);
+        this.app.use('/api/v1/', GroupRoutes);
 
     }
 }
