@@ -25,8 +25,11 @@
    Payload: {name: "group name", description: "group description"}
 
 - GET /groups – List all groups current user belongs to
+
 - GET /groups/:groupId – Get group details
-- PATCH /groups/:groupId – Update group (name, etc.)
+
+- PATCH /groups/:groupId – Update group (name, description.)
+
 - DELETE /groups/:groupId – Delete group (owner only)
 
 

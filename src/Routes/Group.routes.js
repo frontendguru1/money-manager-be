@@ -15,15 +15,16 @@ class GroupRoutes {
     }
 
     postRoutes() {
-        this.router.post('/group', authMiddleware, GroupValidator.validateCreateGroup, GroupController.createGroup);
+        this.router.post('/groups', authMiddleware, GroupValidator.validateCreateGroup, GroupController.createGroup);
     }
 
     getRoutes() {
-
+        this.router.get('/groups', authMiddleware, GroupController.getGroups);
+        this.router.get('/groups/:groupId', authMiddleware, GroupController.getGroupById)
     }
 
     patchRoutes() {
-        
+        this.router.patch('/groups/:groupId', authMiddleware, GroupValidator.validateCreateGroup, GroupController.updateGroupById);
     }
 
     deleteRoutes() {
