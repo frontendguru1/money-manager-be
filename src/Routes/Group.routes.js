@@ -15,20 +15,26 @@ class GroupRoutes {
     }
 
     postRoutes() {
+        // create a new group
         this.router.post('/groups', authMiddleware, GroupValidator.validateCreateGroup, GroupController.createGroup);
     }
 
     getRoutes() {
+        // List all
         this.router.get('/groups', authMiddleware, GroupController.getGroups);
+        
+        // Get group by ID
         this.router.get('/groups/:groupId', authMiddleware, GroupController.getGroupById)
     }
 
     patchRoutes() {
+
+        // Edit group by ID
         this.router.patch('/groups/:groupId', authMiddleware, GroupValidator.validateCreateGroup, GroupController.updateGroupById);
     }
 
     deleteRoutes() {
-
+        this.router.delete('/groups/:groupId', authMiddleware, GroupController.deleteGroupById);
     }
 
 }

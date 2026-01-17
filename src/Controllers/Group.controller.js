@@ -173,6 +173,61 @@ class GroupController {
         })
     }
    }
+
+   /**
+    * Delete group by ID
+    */
+
+   static async deleteGroupById(req, res) {
+        try {
+
+            // check if the user is authenticated
+            if(!req.user) {
+                return res.status(401)
+                .json({
+                    success: false,
+                    message: 'User not authenticated'
+                });
+            }
+
+            const { groupId } = req.params;
+            const userId = req.user._id;
+
+            // check if the group exists
+            const isGroupExists = await Group.findOne({
+                _id: groupId,
+                createdBy: userId
+            });
+
+            if(!isGroupExists) {
+                return res.status(404).
+                json({
+                    success: false,
+                    message: 'Invalid group ID'
+                });
+            }
+
+            // delete the group
+            await Group.deleteOne({
+                _id: groupId,
+                createdBy: userId
+            });
+
+            return res.status(200).
+            json({
+                success: true,
+                message: 'Group deleted successfully'
+            });
+
+        } catch (error) {
+            return res.status(500).
+            json({
+                success: false,
+                message: 'Internal Server Error',
+                error: error.message
+            })
+        }
+   }
 }
 
 export default GroupController;
