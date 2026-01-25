@@ -19,15 +19,15 @@ class BudgetRoute {
     }
 
     GetRoutes() {
-        // To be implemented
+        this.router.get("/groups/:groupId/budgets", authMiddleware, BudgetController.getBudgetsByGroupId)
     }
 
     PatchRoutes() {
-        // To be implemented
+        this.router.patch("/groups/:groupId/budgets/:budgetId", authMiddleware, BudgetValidator.validateCreateBudget, BudgetController.updateBudgetById);
     }
 
     DeleteRoutes() {
-        // To be implemented
+        this.router.delete("/groups/:groupId/budgets/:budgetId", authMiddleware, BudgetController.deleteBudgetById);
     }
 
 }

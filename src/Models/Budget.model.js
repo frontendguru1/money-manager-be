@@ -26,6 +26,7 @@ const BudgetSchema = new Schema({
     isActive: {
         type: Boolean,
         default: true,
+        required: true,
     }
     }, {
         timestamps: true    
